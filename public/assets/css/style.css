@@ -1,0 +1,14 @@
+body {
+	background-color: mistyrose;
+	/*text-align: center;*/
+	background-image: url("../images/olu-eletu-134758.jpg");
+}
+
+.navbar {
+   background-color: transparent;
+   background: transparent;
+   border-color: transparent;
+   text-align: right;
+}
+
+.navbar li { color: #000 } 
