@@ -2,10 +2,12 @@ body {
 	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 300;
 	line-height: 1.1;
+   	color: white;
+
 	-webkit-font-smoothing: antialiased;
 	background-color: mistyrose;
 	/*text-align: center;*/
-	background-image: url("../images/olu-eletu-134758.jpg");
+	background-image: url("../images/ana-martin-161065.jpg");
 	background-size: 1920px;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -13,24 +15,352 @@ body {
 
 .navbar {
    background-color: transparent;
-   background: #2c3444;
+   background: transparent;
    border-color: transparent;
    background-attachment: fixed;
    /*text-align: right;*/
-   color: white;
+
 
 }
 
 .title {
-	font-size: 40px;
-	text-align: center;
+	/*font-size: 40px;*/
+	margin-top: 300px;
 }
 
-/*.navbar-brand {
+
+a {
 	color: white;
 }
 
-.navbar-brand:hover {
-	color: tomato;
-}*/
-/*.navbar li { color: white} */
+a:hover {
+	text-decoration: none;
+	color: lightgray;
+}
+
+#hero .fade {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    -webkit-backface-visibility: hidden
+}
+#hero .ppr {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    z-index: 1;
+    color: #fff;
+    width: 100%;
+    text-align: center
+}
+#hero .ppr span {
+    font-size: 10vw;
+    font-family: "Demi", Helvetica, Arial, sans-serif;
+    z-index: 2;
+    margin: 0;
+    line-height: 1;
+    cursor: default;
+    /*-webkit-touch-callout: none;*/
+    -webkit-user-select: none;
+    /*-khtml-user-select: none;*/
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    display: block
+}
+#hero .ppr h1 {
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    position: absolute;
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+    width: 100%;
+    margin: 0;
+    opacity:0; 
+    top: 50%;
+    left: 50%;
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%) scale(0.98, 0.98);
+    -o-transform: translate(-50%, -50%) scale(0.98, 0.98);
+    -ms-transform: translate(-50%, -50%) scale(0.98, 0.98);
+    -webkit-transform: translate(-50%, -50%) scale(0.98, 0.98);
+    transform: translate(-50%, -50%) scale(0.98, 0.98);
+    font-size: 2.8em;
+}
+
+#hero .ppr:hover h1 {
+    opacity: 1;
+    -moz-transform: translate(-50%, -50%) scale(1, 1);
+    -o-transform: translate(-50%, -50%) scale(1, 1);
+    -ms-transform: translate(-50%, -50%) scale(1, 1);
+    -webkit-transform: translate(-50%, -50%) scale(1, 1);
+    transform: translate(-50%, -50%) scale(1, 1)
+}
+
+#hero #scroll {
+    display: inline-block
+}
+
+#hero #scroll span {
+    display: inline-block
+}
+
+#hero .ppr:hover span {
+    -moz-transform: scale(0.9, 0.9);
+    -o-transform: scale(0.9, 0.9);
+    -ms-transform: scale(0.9, 0.9);
+    -webkit-transform: scale(0.9, 0.9);
+    transform: scale(0.9, 0.9);
+    opacity: 0 !important;
+}
+
+.cf {
+    zoom: 1
+}
+.clearfix:before,
+.clearfix:after,
+.cf:before,
+.cf:after {
+    content: "";
+    display: table
+}
+.clearfix:after,
+.cf:after {
+    clear: both
+}
+/* =================== */
+/* =================== */
+
+#global--header .wrap #menu--toggle-container #project--toggle {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 18px
+}
+#global--header .wrap #menu--toggle-container #project--toggle span {
+    width: 5px;
+    height: 12px;
+    display: block;
+    float: left;
+    position: relative;
+    right: 0;
+    top: 2px;
+    margin-left: 5px
+}
+#global--header .wrap #menu--toggle-container #project--toggle span:after,
+#global--header .wrap #menu--toggle-container #project--toggle span:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #000;
+    position: absolute;
+    left: 0
+}
+#global--header .wrap #menu--toggle-container #project--toggle span:before {
+    bottom: 0
+}
+#global--header .wrap #menu--toggle-container #project--toggle.clicked {
+    width: 16px
+}
+#global--header .wrap #menu--toggle-container #project--toggle.clicked span {
+    width: 100%;
+    position: absolute
+}
+#global--header .wrap #menu--toggle-container #project--toggle.clicked span:after,
+#global--header .wrap #menu--toggle-container #project--toggle.clicked span:before {
+    height: 2px;
+    top: 5px;
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg)
+}
+#global--header .wrap #menu--toggle-container #project--toggle.clicked span:before {
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg)
+}
+#global--header .wrap #menu--toggle-container #project--toggle.clicked span:first-child {
+    opacity: 0
+}
+
+/* =================== */
+/* =================== */
+
+
+#global--header .wrap #menu--toggle-container {
+    float: right;
+    display: block;
+    position: absolute;
+    bottom: 3px;
+    right: 0;
+    color: rgba(0, 0, 0, 0.5)
+}
+#global--header .wrap #menu--toggle-container a {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    color: rgba(0, 0, 0, 0.5)
+}
+#global--header .wrap #menu--toggle-container #menu--toggle {
+    position: relative;
+    padding-right: 24px;
+    margin-right: 6px;
+    width: 74px;
+    height: 15px
+}
+#global--header .wrap #menu--toggle-container #menu--toggle:before {
+    content: 'Menu';
+    position: absolute;
+    margin-right: 5px;
+    top: 0;
+    color: #000;
+    font-family: "Demi", Helvetica, Arial, sans-serif;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    opacity: 0;
+    left: 0;
+    font-size: 0.95em;
+    -moz-transform: translate(0, 4px);
+    -o-transform: translate(0, 4px);
+    -ms-transform: translate(0, 4px);
+    -webkit-transform: translate(0, 4px);
+    transform: translate(0, 4px);
+    display: none
+}
+#global--header .wrap #menu--toggle-container #menu--toggle.video--close:before {
+    content: 'Close'
+}
+#global--header .wrap #menu--toggle-container #menu--toggle:hover:before {
+    opacity: 1;
+    -moz-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0)
+}
+#global--header .wrap #menu--toggle-container #menu--toggle.clicked .toggle:before {
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    top: 5px;
+    bottom: 0
+}
+#global--header .wrap #menu--toggle-container #menu--toggle.clicked .toggle:after {
+    top: 5px;
+    bottom: 0;
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg)
+}
+#global--header .wrap #menu--toggle-container #menu--toggle.clicked:hover .toggle {
+    height: 12px;
+    margin-top: 0
+}
+#global--header .wrap #menu--toggle-container #menu--toggle .toggle {
+    width: 16px;
+    height: 12px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s
+}
+#global--header .wrap #menu--toggle-container #menu--toggle .toggle:after,
+#global--header .wrap #menu--toggle-container #menu--toggle .toggle:before {
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #000;
+    position: absolute;
+    left: 0
+}
+#global--header .wrap #menu--toggle-container #menu--toggle .toggle:before {
+    bottom: 0
+}
+#global--header .wrap #menu--toggle-container #project--toggle {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 18px
+}
+#global--header .wrap #menu--toggle-container #project--toggle span {
+    width: 5px;
+    height: 12px;
+    display: block;
+    float: left;
+    position: relative;
+    right: 0;
+    top: 2px;
+    margin-left: 5px
+}
+#global--header .wrap #menu--toggle-container #project--toggle span:after,
+#global--header .wrap #menu--toggle-container #project--toggle span:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #000;
+    position: absolute;
+    left: 0
+}
+#global--header .wrap #menu--toggle-container #project--toggle span:before {
+    bottom: 0
+}
+#global--header .wrap #menu--toggle-container #project--toggle.clicked {
+    width: 16px
+}
+#global--header .wrap #menu--toggle-container #project--toggle.clicked span {
+    width: 100%;
+    position: absolute
+}
+#global--header .wrap #menu--toggle-container #project--toggle.clicked span:after,
+#global--header .wrap #menu--toggle-container #project--toggle.clicked span:before {
+    height: 2px;
+    top: 5px;
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg)
+}
+#global--header .wrap #menu--toggle-container #project--toggle.clicked span:before {
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg)
+}
+#global--header .wrap #menu--toggle-container #project--toggle.clicked span:first-child {
+    opacity: 0
+}
