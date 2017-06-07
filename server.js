@@ -16,6 +16,9 @@ var request = require("request");
 // Scrapes our HTML
 var cheerio = require("cheerio");
 
+// Without usage of Promise the value is depricated
+mongoose.Promise = Promise;
+
 // Initialize Express
 var app = express();
 
@@ -42,36 +45,42 @@ db.once("open", function() {
 
 // create a GET request to scrape the website 
 app.get('/scrape', function(req, res) {
-
+	
+	
 	// send a GET request with 2 arguments, the website, and a function with 3 parameters—the err, the response, and the html. 
-	request("http://therealnews.com/t2/", function(err, res, html) {
+	request("http://www.theonion.com/", function(err, res, html) {
+	
 
 		// Cheerio handles the the html portion of the request. We'll save that variable as a $
 		var $ = cheerio.load(html);
-
-		// With cheerio, look at each award-winning site, enclosed in "figure" tags with the class name "site"
-		$("valign").each(function(i, element) {
+	
+		
+		$(".summary").each(function(i, element) {
 	   	
-	   		// Make an empty array for saving our scraped info
 			var result = {};
+			// console.log("result")
 
-
-	   		result.title = $(this).children("a").text();
+	   		result.title = $(this).text();
+			// console.log("result.title")	    
 	    
-	      	result.link = $(this).children("a").attr("href");
-			
+	      	result.link = $(this).find("a").attr("href");
+			// console.log("result.link")	    
+		
 			var entry = new Article(result);
-
-			// Now, save that entry to the db
+			// console.log("result.Article")
+	    
 	      	entry.save(function(err, doc) {
 		        // Log any errors
 		        if (err) {
 		          console.log(err);
 		        } else {
 		          console.log(doc);
+		          // console.log("result.doc")
 	        	}
 	        })
+	        
 		});
+
 	})
 
 	// With each link scraped, log the result to the console
@@ -99,6 +108,71 @@ app.get("/articles", function(req, res) {
     // Otherwise, send the result of this query to the browser
     else {
       res.json(found);
+    }
+  });
+});
+
+// This will get the articles we scraped from the mongoDB
+app.get("/articles", function(req, res) {
+  // Grab every doc in the Articles array
+  Article.find({}, function(error, doc) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Or send the doc to the browser as a json object
+    else {
+      res.json(doc);
+    }
+  });
+});
+
+// Grab an article by it's ObjectId
+app.get("/articles/:id/note", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  Article.findOne({ "_id": req.params.id })
+  // ..and populate all of the notes associated with it
+  .populate("note")
+  // now, execute our query
+  .exec(function(error, doc) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise, send the doc to the browser as a json object
+    else {
+      res.json(doc);
+    }
+  });
+});
+
+
+// Create a new note or replace an existing note
+app.post("/articles/:id", function(req, res) {
+  // Create a new note and pass the req.body to the entry
+  var newNote = new Note(req.body);
+
+  // And save the new note the db
+  newNote.save(function(error, doc) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise
+    else {
+      // Use the article id to find and update it's note
+      Article.findOneAndUpdate({ "_id": req.params.id }, { "note": doc._id })
+      // Execute the above query
+      .exec(function(err, doc) {
+        // Log any errors
+        if (err) {
+          console.log(err);
+        }
+        else {
+          // Or send the document to the browser
+          res.send(doc);
+        }
+      });
     }
   });
 });
