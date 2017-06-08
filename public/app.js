@@ -1,8 +1,49 @@
 
-$.getJSON("/articles", function(data) {
- 
+// =================
+// Smooth State ----
+// =================
+
+
+// $(function(){
+//   'use strict';
+//   var options = {
+//     prefetch: true,
+//     cacheLength: 2,
+//     onStart: {
+//       duration: 250, // Duration of our animation
+//       render: function ($container) {
+//         // Add your CSS animation reversing class
+//         $container.addClass('is-exiting');
+
+//         // Restart your animation
+//         smoothState.restartCSSAnimations();
+//       }
+//     },
+//     onReady: {
+//       duration: 0,
+//       render: function ($container, $newContent) {
+//         // Remove your CSS animation reversing class
+//         $container.removeClass('is-exiting');
+
+//         // Inject the new content
+//         $container.html($newContent);
+
+//       }
+//     }
+//   },
+//   smoothState = $('#main').smoothState(options).data('smoothState');
+// });
+// -----------------
+// -----------------
+
+
+// when going to /articles, we'll see all the articles we scraped
+$.getJSON("/all-articles", function(data) {
+  
+  // for every entry in the data list we get...
   for (var i = 0; i < data.length; i++) {
-    // Display the apropos information on the page
+   
+    //... create the following information on our page
     $("#articles").append("<p data-id='" + data[i]._id + "'>" + "</p>" + data[i].title + "<br />" + data[i].link);
   }
 });

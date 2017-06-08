@@ -7,11 +7,14 @@ var Schema = mongoose.Schema;
 var NoteSchema = new Schema({
 
 	title: {
-		type: String
+		type: String,	
+		trim: true 
 	},
 
+
 	body:{ 
-		type: String
+		type: String,
+		trim: true
 	}
 });
 
