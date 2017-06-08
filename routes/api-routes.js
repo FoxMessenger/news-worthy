@@ -1,8 +1,8 @@
 // ==============================
 // Dependencies
 // ==============================
-// var Article = require("./models/Article.js")
-// var Note = require("./models/Note.js")
+var request 	= require("request"); // request would fail if it wasn't in the same folder here
+var cheerio 	= require("cheerio");
 
 
 // ==============================
@@ -12,9 +12,9 @@
 module.exports = function(app) {
 	
 	// Main Page
-	app.get('/', function(req, res){
-		res.redirect("/"); 
-	});
+	// app.get('/', function(req, res){
+	// 	res.redirect("/"); 
+	// });
 
 	// Clicking on the Title or the Navbar Brand will scrape the Onion
 	app.get('/scrape', function(req, res) {
@@ -37,7 +37,7 @@ module.exports = function(app) {
 		   		result.title = $(this).find('.headline').children('a').attr('title');
 		    
 		    	// Result 2 is the link
-		      	result.link = $(this).find(".headline").attr("href");
+		      	result.link = $(this).find(".headline").children('a').attr("href");
 				
 				// Entry variable creates a new Article component with the results inside of it
 				var entry = new Article(result);
@@ -59,13 +59,14 @@ module.exports = function(app) {
 		// With each link scraped, log the result to the terminal
 		console.log("Finished Scrape");
 		// Bring us back to the main screen
-		res.redirect("/articles")
+		res.redirect("/articles.html")
 	});
 
-
-	// ==============================
-	// 				Routes
-	// ==============================
+	// This will get the articles we scraped from the mongoDB
+	app.get("/articles", function(req, res) {
+	  // Grab every doc in the Articles array
+		res.redirect("/articles")
+	});
 
 
 	// 2. At the "/articles" path, display every entry in the collection that we've scraped
@@ -86,68 +87,53 @@ module.exports = function(app) {
 	  });
 	});
 
-	// // This will get the articles we scraped from the mongoDB
-	// app.get("/articles", function(req, res) {
-	//   // Grab every doc in the Articles array
-	//   Article.find({}, function(error, doc) {
-	//     // Log any errors
-	//     if (error) {
-	//       console.log(error);
-	//     }
-	//     // Or send the doc to the browser as a json object
-	//     else {
-	//       res.json(doc);
-	//     }
-	//   });
-	// });
-
-	// // Grab an article by it's ObjectId
-	// app.get("/articles/:id/note", function(req, res) {
-	//   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-	//   Article.findOne({ "_id": req.params.id })
-	//   // ..and populate all of the notes associated with it
-	//   .populate("note")
-	//   // now, execute our query
-	//   .exec(function(error, doc) {
-	//     // Log any errors
-	//     if (error) {
-	//       console.log(error);
-	//     }
-	//     // Otherwise, send the doc to the browser as a json object
-	//     else {
-	//       res.json(doc);
-	//     }
-	//   });
-	// });
+	// Grab an article by it's ObjectId
+	app.get("/all-articles/:id/note", function(req, res) {
+	  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+	  Article.findOne({ "_id": req.params.id })
+	  // ..and populate all of the notes associated with it
+	  .populate("note")
+	  // now, execute our query
+	  .exec(function(error, doc) {
+	    // Log any errors
+	    if (error) {
+	      console.log(error);
+	    }
+	    // Otherwise, send the doc to the browser as a json object
+	    else {
+	      res.json(doc);
+	    }
+	  });
+	});
 
 
-	// // Create a new note or replace an existing note
-	// app.post("/articles/:id", function(req, res) {
-	//   // Create a new note and pass the req.body to the entry
-	//   var newNote = new Note(req.body);
+	// Create a new note or replace an existing note
+	app.post("/all-articles/:id", function(req, res) {
+	  // Create a new note and pass the req.body to the entry
+	  var newNote = new Note(req.body);
 
-	//   // And save the new note the db
-	//   newNote.save(function(error, doc) {
-	//     // Log any errors
-	//     if (error) {
-	//       console.log(error);
-	//     }
-	//     // Otherwise
-	//     else {
-	//       // Use the article id to find and update it's note
-	//       Article.findOneAndUpdate({ "_id": req.params.id }, { "note": doc._id })
-	//       // Execute the above query
-	//       .exec(function(err, doc) {
-	//         // Log any errors
-	//         if (err) {
-	//           console.log(err);
-	//         }
-	//         else {
-	//           // Or send the document to the browser
-	//           res.send(doc);
-	//         }
-	//       });
-	//     }
-	//   });
-	// });
+	  // And save the new note the db
+	  newNote.save(function(error, doc) {
+	    // Log any errors
+	    if (error) {
+	      console.log(error);
+	    }
+	    // Otherwise
+	    else {
+	      // Use the article id to find and update it's note
+	      Article.findOneAndUpdate({ "_id": req.params.id }, { "note": doc._id })
+	      // Execute the above query
+	      .exec(function(err, doc) {
+	        // Log any errors
+	        if (err) {
+	          console.log(err);
+	        }
+	        else {
+	          // Or send the document to the browser
+	          res.send(doc);
+	        }
+	      });
+	    }
+	  });
+	});
 }

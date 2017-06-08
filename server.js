@@ -2,59 +2,82 @@
 // Dependencies
 // ==============================
 
-var express = require("express");
-var bodyparser = require("body-parser")
-var mongojs = require("mongojs");
-var mongoose = require("mongoose");
-// var env = require('dotenv').load();
-var Article = require("./models/Article.js")
-var Note = require("./models/Note.js")
-var request = require("request");
-var cheerio = require("cheerio");
+	var express 	= require('express');
+	var bodyparser 	= require('body-parser')
+	var handlebars 	= require('handlebars');
 
-// Without usage of Promise the value is depricated
-mongoose.Promise = Promise;
+	var mongojs 	= require('mongojs');
+	var mongoose 	= require('mongoose');
 
-// Initialize Express
-var app = express();
+	var exphbs 		= require('express-handlebars');
+	var hbs 		= exphbs.create({
+						defaultLayout: 'main',
+						partialsDir: ['views/partials/']
+	});
+
+	var Article 	= require('../models/Article.js')
+	var Note 		= require('../models/Note.js')
+
 
 // ==============================
-// Sets up the Express App
+// Sets up the Express App and Data Parsing
 // ==============================
-app.use(express.static("public"));
-// var PORT = process.env.PORT || 3000;
+
+	app.use(express.static('public'));
+	var PORT 		= process.env.PORT || 3000;
+
+	app.use(express.static(process.cwd() + '/public'));
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({ extended: true }));
+	app.use(bodyParser.text());
+	app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 // ==============================
 // Mongoose
 // ==============================
-// Mongoose Database configuration
-mongoose.connect("mongodb://localhost/news-worthy");
-var db = mongoose.connection;
 
-// Mongoose err message
-db.on("err", function(err) {
-  console.log("mongoose Err: ", err);
-});
-// Mongoose success message
-db.once("open", function() {
-  console.log("Mongoose connection successful.");
-});
+	// Mongoose Database configuration
+	mongoose.Promise= Promise;
+	mongoose.connect('mongodb://localhost/news-worthy');
+	var db 			= mongoose.connection;
+
+	// Mongoose err message
+	db.on('err', function(err) {
+	  console.log('mongoose Err: ', err);
+	});
+	// Mongoose success message
+	db.once('open', function() {
+	  console.log('Mongoose connection successful.');
+	});
 
 // ==============================
-// Handle data parsing set up
+// Handlebars
 // ==============================
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.text());
-// app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
+	app.engine('handlebars', hbs.engine);
+	app.set('view engine', 'handlebars');
+
+// ==============================
+// Controllers
+// ==============================
+	var onion 		= require('./controllers/onion_controller.js');
+	var scraper 	= require('./controllers/scraper_controller.js');
 
 // ==============================
 // Routes
 // ==============================
-require("./routes/api-routes.js")(app);
+	var app 		= express();
+	app.use('/', onion);
+	app.use('/', cheerio);
+
+	// require('./routes/html-routes.js')(app);
+	// require('./routes/api-routes.js')(app);
+
+// ==============================
+// Run Server
+// ==============================
+	app.listen(PORT, function() {
+		console.log('App running on port ' + PORT);
+	});
 
 
-// Set the app to listen on port 3000
-app.listen(3000, function() {
-  console.log("App running on port 3000!");
-});
