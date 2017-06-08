@@ -3,8 +3,9 @@
 // ==============================
 
 	var express 	= require('express');
-	var bodyparser 	= require('body-parser')
+	var bodyParser 	= require('body-parser')
 	var handlebars 	= require('handlebars');
+	var app 		= express();
 
 	var mongojs 	= require('mongojs');
 	var mongoose 	= require('mongoose');
@@ -15,8 +16,8 @@
 						partialsDir: ['views/partials/']
 	});
 
-	var Article 	= require('../models/Article.js')
-	var Note 		= require('../models/Note.js')
+	var Article 	= require('./models/Article.js')
+	var Note 		= require('./models/Note.js')
 
 
 // ==============================
@@ -66,9 +67,8 @@
 // ==============================
 // Routes
 // ==============================
-	var app 		= express();
 	app.use('/', onion);
-	app.use('/', cheerio);
+	app.use('/', scraper);
 
 	// require('./routes/html-routes.js')(app);
 	// require('./routes/api-routes.js')(app);
