@@ -59,7 +59,7 @@ module.exports = function(app) {
 		// With each link scraped, log the result to the terminal
 		console.log("Finished Scrape");
 		// Bring us back to the main screen
-		res.redirect("/articles")
+		res.redirect("/")
 	});
 
 
