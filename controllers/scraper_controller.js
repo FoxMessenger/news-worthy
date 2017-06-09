@@ -13,9 +13,10 @@
 // ==============================
 // Routes
 // ==============================
-module.exports  = function(app) {
 
-    app.get('/scrape', function(req, res) {
+// module.exports  = function(app) {
+
+    router.get('/scrape', function(req, res) {
         
         
         // GET request with 2 arguments: the website, and a function with 3 parameters: error, the response, and the html. 
@@ -55,10 +56,12 @@ module.exports  = function(app) {
         // With each link scraped, log the result to the terminal
         console.log('Finished Peeling');
         // Bring us back to the main screen
-        res.redirect('/')
+        res.redirect('/articles')
     });
+// }
 
-}
+module.exports = router;
+
 
 //     ==============
 //     ==============

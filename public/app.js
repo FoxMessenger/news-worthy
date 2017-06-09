@@ -5,7 +5,7 @@ $.getJSON("/all-articles", function(data) {
   for (var i = 0; i < data.length; i++) {
    
     //... create the following information on our page
-    $("#articles").append("<p data-id='" + data[i]._id + "'>" + "</p>" + data[i].title + "<br />" + data[i].link);
+    $("#articles").append("<div data-id='" + data[i]._id + "'>" + "</div>" + data[i].title + "<br />" + data[i].link).addClass("articles-style");
   }
 });
 

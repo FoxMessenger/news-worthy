@@ -11,11 +11,17 @@
 // ==============================
 // Routes
 // ==============================
-module.exports = function(app) {
+
+// module.exports = function(app) {
 
     // Main Page
     router.get('/', function(req, res) {
         res.render('index');
+    });
+
+    // Articles Page
+    router.get('/articles', function(req, res) {
+        res.render('articles');
     });
 
     // retrieve all articles scraped
@@ -76,4 +82,6 @@ module.exports = function(app) {
             }
         });
     });
-}
+// }
+
+module.exports = router; // routers have more modular options than app.

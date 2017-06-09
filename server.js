@@ -16,8 +16,8 @@
 						partialsDir: ['views/partials/']
 	});
 
-	var Article 	= require('./models/Article.js')
-	var Note 		= require('./models/Note.js')
+	// var Article 	= require('./models/Article.js')
+	// var Note 		= require('./models/Note.js')
 
 
 // ==============================
@@ -61,14 +61,16 @@
 // ==============================
 // Controllers
 // ==============================
-	var onion 		= require('./controllers/onion_controller.js');
 	var scraper 	= require('./controllers/scraper_controller.js');
+	var onion 		= require('./controllers/onion_controller.js');
+	
 
 // ==============================
 // Routes
 // ==============================
-	app.use('/', onion);
 	app.use('/', scraper);
+	app.use('/', onion);
+	
 
 	// require('./routes/html-routes.js')(app);
 	// require('./routes/api-routes.js')(app);

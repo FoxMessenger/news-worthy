@@ -38,9 +38,14 @@ a:hover {
 	color: lightgray;
 }
 
-/* ===================  */
-/* Fading Text effect	*/
-/* ===================  */
+.articles-style {
+    border-top: solid;
+    border-bottom: solid;
+}
+
+/* ===================      */
+/* Main Fading Text Effect	*/
+/* ===================      */
 
 #hero .fade {
     display: block;
