@@ -32,17 +32,22 @@
                 result.image    = $(this).find('.thumb').text();
                 // console.log("\n This is the image link find('.thumb').text(): " + $(this).find('.thumb').text() + "\n")
                 
-                // Entry variable creates a new Article component with the results inside of it
-                var entry = new Article(result);
-
-                // Save the new entry, which now contains the Article results using the Mongoose method .save()
-                entry.save(function(err, doc) {
-                    
-                    if (err) {
-                      console.log(err);
-                    } else {
-                      console.log(doc);
-                    }
+                // to keep the scraper from repeating articles
+                Article.findOne({ "title": result.title}, function(err, res) {
+                    // if title doesn't exist, add it, otherwise, don't do anything.
+                    if (res === null) {
+                        var entry = new Article(result);
+                        
+                        if (result.title && result.link) {
+                            entry.save(function(err, doc) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    console.log(doc);
+                                }
+                            });
+                        }
+                    } 
                 })
                 
             });

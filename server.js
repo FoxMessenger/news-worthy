@@ -14,11 +14,7 @@
 	var hbs 		= exphbs.create({
 						defaultLayout: 'main',
 						partialsDir: ['views/partials/']
-	});
-
-	// var Article 	= require('./models/Article.js')
-	// var Note 		= require('./models/Note.js')
-
+					  });
 
 // ==============================
 // Sets up the Express App and Data Parsing
@@ -64,16 +60,11 @@
 	var scraper 	= require('./controllers/scraper_controller.js');
 	var router		= require('./controllers/router_controller.js');
 	
-
 // ==============================
 // Routes
 // ==============================
 	app.use('/', scraper);
 	app.use('/', router);
-	
-
-	// require('./routes/html-routes.js')(app);
-	// require('./routes/api-routes.js')(app);
 
 // ==============================
 // Run Server

@@ -12,53 +12,28 @@ $.getJSON('/all-articles', function(data) {
 
 });
 
-
-// // Get all Notes
-// $(document).on('click', '#all-notes', function() {
-//     var thisId = $(this).attr('data-id');
-
-//     // Now make an ajax call for the Article
-//     $.ajax({
-//         method: 'GET',
-//         url: '/article-notes/' + thisId
-//     })
-//     // With that done, add the note information to the page
-//     .done(function(data) {
-//         // console.log(data);
-//         $('#article-notes').append("words")
-//         }
-//     });
-// });
-
-
 // Add a Note
 $(document).on('click', '#notes-btn', function() {
     // Empty the notes from the note section
     $('#notes').empty();
-    // Save the id from the p tag
+    // Save the id
     var thisId = $(this).attr('data-id');
 
-    // Now make an ajax call for the Article
     $.ajax({
         method: 'GET',
         url: '/article-notes/' + thisId
-    })
-    // With that done, add the note information to the page
-    .done(function(data) {
-        // console.log(data);
+    }).done(function(data) {
 
-        $('#add-notes').html("<input type='text' class='note-style' name='titleinput' placeholder='title'> <textarea type='text' class='note-style' name='bodyinput' placeholder='write note here'>" + "</textarea><br /><button data-id='" + data._id + "' class='note-style' id='save-note'>save</button>");
+        $('#add-notes').html("<input type='text' id='title' class='note-style' name='title' placeholder='title'><br /> <textarea type='text' id='body' class='note-style' name='body' placeholder='write note here'>" + "</textarea><br /><button data-id='" + data._id + "' class='note-style' id='save-note'>save</button>");
 
         // If there's a note in the article
         if (data.note) {
-            // Place the title of the note in the title input
+            
             $('#titleinput').val(data.note.title);
-            // Place the body of the note in the body textarea
             $('#bodyinput').val(data.note.body);
         }
     });
 });
-
 
 // Save the Note
 $(document).on('click', '#save-note', function() {
@@ -68,23 +43,38 @@ $(document).on('click', '#save-note', function() {
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
     method: 'POST',
-    url: '/articles-notes/' + thisId,
+    url: '/notes/' + thisId,
     data: {
         // Value taken from title input
-        title: $('#titleinput').val(),
+        title: $('#title').val(),
         // Value taken from note textarea
-        body: $('#bodyinput').val()
+        body: $('#body').val()
     }
-    })
-    // With that done
-    .done(function(data) {
-        // Log the response
+    }).done(function(data) {
+        
         console.log(data);
-        // Empty the notes section
+        
         $('#notes').empty();
     });
-
     // Also, remove the values entered in the input and textarea for note entry
-    $('#titleinput').val('');
-    $('#bodyinput').val('');
+    $('#title').val('');
+    $('#body').val('');
 });
+
+
+// View notes
+$(document).on('click', '#all-notes', function() {
+    
+    var thisId = $(this).attr('data-id');
+
+    $.ajax({
+        method: 'GET',
+        url: '/article-notes/' + thisId
+    }).done(function(data) {
+        for (var i = 0; i < data.notes.length; i++) {
+            console.log(data.notes[i].body);
+            $('#article-notes').text(data.notes[i].body);
+        }
+    });
+});
+
