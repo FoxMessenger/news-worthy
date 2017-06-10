@@ -26,11 +26,11 @@
 
     // retrieve all articles scraped
     router.get('/all-articles', function(req, res) {
-        Article.find({}, function(err, data) {
+        Article.find({}, function(err, doc) {
             if (err) {
                 console.log(err);
             } else {
-                res.json(data);
+                res.json(doc);
             }
         });
     });
@@ -46,29 +46,15 @@
       });
     });
 
-    // Article Notes
-    router.get('/article-notes', function(req, res) {
-        Article.find({}).populate('notes')
-        .exec(function(err, data) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(data);
-            }
-        })
-    });
-
-    // Save Note to Article
+    // Populate Notes to Articles
     router.get('/article-notes/:id', function(req, res) {
-        Article.findOne({ '_id': req.params.id })
-        .populate('notes').exec(function(err, doc) {
+        Article.findOne({ '_id': req.params.id }).populate('notes').exec(function(err, doc) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(doc);
                 res.json(doc);
             }
-        });
+        })
     });
 
     // New note
@@ -82,12 +68,12 @@
           res.send(error);
         } else {
       
-          Article.findOneAndUpdate({}, { $push: { 'notes': doc._id } }, { new: true }, function(err, newdoc) {
+          Article.findOneAndUpdate({}, { $push: { 'notes': doc._id } }, { new: true }, function(err, doc) {
 
             if (err) {
               res.send(err);
             } else {
-              res.send(newdoc);
+              res.send(doc);
             }
           });
         }
@@ -95,7 +81,7 @@
     });
 
 
-    // // Saved notes
+    // // Save notes
     // router.post('/note/:id', function(req, res) {
        
     //     var new_note = new Note(req.body);
@@ -117,18 +103,18 @@
     //     });
     // });
 
-    // // Remove notes
-    // router.get('/remove-note/:id', function(req, res) {
-    //     var note_id = req.params.id;
-    //     Note.findOneAndRemove({ '_id': req.params.id }, function(err, response) {
-    //         if (err) throw err;
-    //         Article.update({ 'notes': req.params.id }, {$pull: {'notes': req.params.id }})
-    //         .exec(function(err, doc) {
-    //             if (err) throw err;
-    //             res.json(doc);
-    //         })
-    //     });
-    // });
+    // Remove notes
+    router.get('/remove-note/:id', function(req, res) {
+        var note_id = req.params.id;
+        Note.findOneAndRemove({ '_id': req.params.id }, function(err, response) {
+            if (err) throw err;
+            Article.update({ 'notes': req.params.id }, {$pull: {'notes': req.params.id }})
+            .exec(function(err, doc) {
+                if (err) throw err;
+                res.json(doc);
+            })
+        });
+    });
 
 
 module.exports = router; // routers have more modular options than app.

@@ -62,14 +62,14 @@
 // Controllers
 // ==============================
 	var scraper 	= require('./controllers/scraper_controller.js');
-	var onion 		= require('./controllers/onion_controller.js');
+	var router		= require('./controllers/router_controller.js');
 	
 
 // ==============================
 // Routes
 // ==============================
 	app.use('/', scraper);
-	app.use('/', onion);
+	app.use('/', router);
 	
 
 	// require('./routes/html-routes.js')(app);

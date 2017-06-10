@@ -30,7 +30,7 @@
                 result.title    = $(this).find('.headline').children('a').attr('title');
                 result.link     = $(this).find('.headline').children('a').attr('href');
                 result.image    = $(this).find('.thumb').text();
-                console.log("\n This is the image link find('.thumb').text(): " + $(this).find('.thumb').text() + "\n")
+                // console.log("\n This is the image link find('.thumb').text(): " + $(this).find('.thumb').text() + "\n")
                 
                 // Entry variable creates a new Article component with the results inside of it
                 var entry = new Article(result);

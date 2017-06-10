@@ -47,7 +47,7 @@ $(document).on('click', '#notes-btn', function() {
     .done(function(data) {
         // console.log(data);
 
-        $('#add-notes').html("<input type='text' class='note-style' name='title' placeholder='title'> <textarea type='text' class='note-style'name='body' placeholder='write note here'>" + "</textarea><br /><button data-id='" + data._id + "' class='note-style' id='savenote'>save</button>");
+        $('#add-notes').html("<input type='text' class='note-style' name='titleinput' placeholder='title'> <textarea type='text' class='note-style' name='bodyinput' placeholder='write note here'>" + "</textarea><br /><button data-id='" + data._id + "' class='note-style' id='save-note'>save</button>");
 
         // If there's a note in the article
         if (data.note) {
@@ -61,7 +61,7 @@ $(document).on('click', '#notes-btn', function() {
 
 
 // Save the Note
-$(document).on('click', '#savenote', function() {
+$(document).on('click', '#save-note', function() {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr('data-id');
 
