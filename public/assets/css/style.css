@@ -3,7 +3,7 @@ body {
 	font-weight: 300;
 	line-height: 1.1;
    	color: white;
-    font-size: 10px;
+    font-size: 11px;
 
 	-webkit-font-smoothing: antialiased;
 	background-color: mistyrose;
@@ -27,6 +27,18 @@ body {
 .title {
 	/*font-size: 40px;*/
 	margin-top: 300px;
+}
+
+#notes-btn,
+#all-notes {
+    color: white;
+    width: 100px;
+    margin-left: 30px;
+    text-indent: 0;
+}
+
+.note-style {
+    color: black;
 }
 
 
