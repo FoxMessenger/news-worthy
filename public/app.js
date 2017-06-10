@@ -5,13 +5,8 @@ $.getJSON('/all-articles', function(data) {
   for (var i = 0; i < data.length; i++) {
    
     //... create the following information on our page
-    $('#articles').append("<li data-id='" + data[i]._id + "'>" + "<a href='http://www.theonion.com" + data[i].link + "'>" + data[i].image + "</a></li>" + "<br />").addClass('onion-image');
-                          // <li data-id='_id'> 
-                              // <a href='website/_link'>
-                                  // <img src='_image'>
-                              // </a>
-                          // </li>
-
+    $('#articles').append("<p><strong>" + data[i].title + "</strong></p>" + "<li data-id='" + data[i]._id + "'>" + "<a href='http://www.theonion.com" + data[i].link + "'>" + data[i].image + "</a></li><hr />");
+    $('.notes').append("{{>notes}}")
   }
 
 });
