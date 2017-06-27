@@ -1,1 +1,1 @@
-mongodb://heroku_gblnwvc3:t8qu5d72f4i91vubskimglb05u@ds161041.mlab.com:61041/heroku_gblnwvc3
+
